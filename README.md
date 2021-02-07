@@ -6,12 +6,12 @@ Este repositorio tiene el proyecto de R del equipo 10 del curso de Bedu Data Sci
 
 #### Integrantes
 
-- Burgos Andre
+- Burgos Andrea
 - Cruz Oviedo Arturo
 - Hernández González Ricardo Paramont
 - Rivas Roa Ricardo Eduardo
 
 ## Objetivo
 
-Analizar el comportamiento de las 5 criptomonedas con valor más alto en el mercado y pronosticar su comportamiento a través del uso de herramientas estadísticas.
+Analizar el comportamiento de las criptomonedas con valor más alto en el mercado y pronosticar su comportamiento a través del uso de herramientas estadísticas.
 
