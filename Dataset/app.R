@@ -8,9 +8,11 @@ library("forecast")
 library("data.table")
 library("dplyr")
 library("lubridate")
+library('tseries')
+library('lmtest')
+
 
 #setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
-##
 
 ui = dashboardPage(skin = "black",
                    dashboardHeader(title = "Tablero"),
@@ -67,40 +69,27 @@ server = function(input, output, session) {
     datos<-read.csv("Base.csv")
     datos<-datos %>% 
       rename(Fecha = Date, Cierre=Close)
-    
     ventas<-as.data.frame(datos%>%
                             filter(CRIPTO==input$criptomoneda) %>%
+                            filter(Fecha>="2017-02-20")%>%
                             group_by(CRIPTO,Fecha) %>%
                             summarise(Cierre=sum(Cierre,na.rm = TRUE)))
-    
-#    ventas=ventas[,3:5]
- #   for(i in 1:nrow(ventas)){
-  #    if(ventas$MES[i]=="ENERO"||ventas$MES[i]=="MARZO"||ventas$MES[i]=="MAYO"||ventas$MES[i]=="JULIO"||ventas$MES[i]=="AGOSTO"||ventas$MES[i]=="OCTUBRE"||ventas$MES[i]=="DICIEMBRE"){
-   #     ventas$Dia[i]=31
-    #  }else if(ventas$MES[i]=="FEBRERO"){
-     #   ventas$Dia[i]=28
-#      }else{
- #       ventas$Dia[i]=30
-  #    }
-   # }
-    
-    
-   # ventas$Fecha<-as.Date(paste(ventas$Dia,"-",ventas$MES,"-","2018",sep=""),format= "%d-%B-%Y")
-    ventas$MesN<-month(ventas$Fecha)
-    ventas<-select(ventas,Cierre,MesN,Fecha) 
-    
-    return(ventas)
+     return(ventas)
   })
   
   output$promediomes = renderPlot({
     datos = base()
-    graph = forecast(sma(datos$Cierre), h = 12)
+    datosts <- ts(data = datos$Cierre)
+    arima<-arima(datosts,order = c(0,1,1))
+    graph = forecast(arima,h=30)
     plot(graph)
   })
   
   output$pronostico = renderTable({
     datos = base()
-    tab = forecast(sma(datos$Cierre), h = 12)
+    datosts <- ts(datos$Cierre)
+    arima<-arima(datosts,order = c(0,1,1))
+    tab = forecast(arima, h=30)
     return(tab)
   })
   
