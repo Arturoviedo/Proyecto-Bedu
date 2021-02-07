@@ -9,7 +9,7 @@ library("data.table")
 library("dplyr")
 library("lubridate")
 
-setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
+#setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
 
 ui = dashboardPage(skin = "black",
                    dashboardHeader(title = "Tablero"),
@@ -46,7 +46,7 @@ server = function(input, output, session) {
   output$menu = renderMenu({
     
     sidebarMenu(
-      menuItem("Analisis de Ventas", tabName = "dashboard1", icon = icon("bar-chart-o")),
+      menuItem("Analisis de Criptomonedas", tabName = "dashboard1", icon = icon("bar-chart-o")),
       menuItem("Controles", tabName = "controles", icon = icon("bar-char-o"),
                
                selectInput(inputId = "criptomoneda",
