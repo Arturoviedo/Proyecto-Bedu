@@ -1,6 +1,22 @@
 # Prework
 
-Analizamos un Dataset de criptomonedas del periodo de 2013 - 2018.
+Analizamos un Dataset de que contiene información de criptomonedas del periodo de 2013 - 2018.
+
+Las criptomonedas que contiene son:
+
+-Bitcoin
+-Dash
+-Lite
+-Etherum
+-Monero
+-Nem
+-Neo
+-Numeraire
+-Omisego
+-Qtum
+-Ripple
+-Statis
+-Waves
 
 ## Dataset
 
