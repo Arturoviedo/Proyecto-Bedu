@@ -101,7 +101,8 @@ server = function(input, output, session) {
       add_ribbons(x = time(fore$mean), ymin = fore$lower[, 1], ymax = fore$upper[, 1],
                   color = I("gray80"), name = "80% confidence") %>%
       add_lines(x = time(fore$mean), y = fore$mean, color = I("blue"), name = "prediction")%>%
-      layout(xaxis = list(range=c(input$plot_points,length(datosts)+input$predict_days)))
+      layout(xaxis = list(range=c(input$plot_points,length(datosts)+input$predict_days)),
+             title=paste("Precio del ",input$criptomoneda),xaxis=list(title='Día'),yaxis=list(title='USD'))
       
   })
   
