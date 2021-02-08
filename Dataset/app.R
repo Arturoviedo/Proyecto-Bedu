@@ -12,7 +12,6 @@ library('tseries')
 library('lmtest')
 
 
-
 #setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
 
 ui = dashboardPage(skin = "black",
@@ -78,12 +77,12 @@ server = function(input, output, session) {
      return(ventas)
   })
   
-  output$promediomes = renderGvis({
+  output$promediomes = renderPlot({
     datos = base()
     datosts <- ts(data = datos$Cierre)
     arima<-auto.arima(datosts)
     graph = forecast(arima,h=12)
-    plot(graph,xlim=c(1600,1800))
+    plot(graph)
   })
   
   output$pronostico = renderTable({
