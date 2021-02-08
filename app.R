@@ -57,12 +57,12 @@ server = function(input, output, session) {
                            label = HTML("Seleccione una criptomoneda:"),
                            choices = c("Seleccione una criptomoneda")),
                sliderInput(inputId = "predict_days",
-                           label = "Numero de dÌas a predecir:",
+                           label = "Numero de d√≠as a predecir:",
                            min = 1,
                            max = 50,
                            value = 30),
                sliderInput(inputId = "plot_points",
-                           label = "Cu·ntos puntos de la grafica deseas saltar:",
+                           label = "Cu√°ntos puntos de la grafica deseas saltar:",
                            min = 365,
                            max = 1100,
                            value = 450),
@@ -70,14 +70,14 @@ server = function(input, output, session) {
     )
   })
   
-  observe({  z<-read.csv("Base.csv")
+  observe({  z<-read.csv("Dataset/Base.csv")
   updateSelectInput(session,inputId = "criptomoneda",label = "Seleccione una criptomoneda:",
                     choices = c(unique(as.character(z$CRIPTO))))
   
   })
   
   base<-eventReactive(input$go,{
-    datos<-read.csv("Base.csv")
+    datos<-read.csv("Dataset/Base.csv")
     datos<-datos %>% 
       rename(Fecha = Date, Cierre=Close)
     ventas<-as.data.frame(datos%>%
@@ -102,7 +102,7 @@ server = function(input, output, session) {
                   color = I("gray80"), name = "80% confidence") %>%
       add_lines(x = time(fore$mean), y = fore$mean, color = I("blue"), name = "prediction")%>%
       layout(xaxis = list(range=c(input$plot_points,length(datosts)+input$predict_days)),
-             title=paste("Precio del ",input$criptomoneda),xaxis=list(title='DÌa'),yaxis=list(title='USD'))
+             title=paste("Precio del ",input$criptomoneda),xaxis=list(title='D√≠a'),yaxis=list(title='USD'))
       
   })
   
