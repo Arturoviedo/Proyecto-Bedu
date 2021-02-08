@@ -6,7 +6,7 @@ Este repositorio tiene el proyecto de R del equipo 10 del curso de Bedu Data Sci
 
 #### Integrantes
 
-- Burgos Andrea
+- Burgos Yanes Andrea
 - Cruz Oviedo Arturo
 - Hernández González Ricardo Paramont
 - Rivas Roa Ricardo Eduardo
