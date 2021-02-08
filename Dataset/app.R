@@ -12,6 +12,7 @@ library('tseries')
 library('lmtest')
 
 
+
 #setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
 
 ui = dashboardPage(skin = "black",
@@ -71,25 +72,25 @@ server = function(input, output, session) {
       rename(Fecha = Date, Cierre=Close)
     ventas<-as.data.frame(datos%>%
                             filter(CRIPTO==input$criptomoneda) %>%
-                            filter(Fecha>="2017-02-20")%>%
+                            #filter(Fecha>="2015-02-20")%>%
                             group_by(CRIPTO,Fecha) %>%
                             summarise(Cierre=sum(Cierre,na.rm = TRUE)))
      return(ventas)
   })
   
-  output$promediomes = renderPlot({
+  output$promediomes = renderGvis({
     datos = base()
     datosts <- ts(data = datos$Cierre)
-    arima<-arima(datosts,order = c(0,1,1))
-    graph = forecast(arima,h=30)
-    plot(graph)
+    arima<-auto.arima(datosts)
+    graph = forecast(arima,h=12)
+    plot(graph,xlim=c(1600,1800))
   })
   
   output$pronostico = renderTable({
     datos = base()
     datosts <- ts(datos$Cierre)
-    arima<-arima(datosts,order = c(0,1,1))
-    tab = forecast(arima, h=30)
+    arima<-auto.arima(datosts)
+    tab = forecast(arima, h=12)
     return(tab)
   })
   
