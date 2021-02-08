@@ -55,14 +55,19 @@ server = function(input, output, session) {
                selectInput(inputId = "criptomoneda",
                            label = HTML("Seleccione una criptomoneda:"),
                            choices = c("Seleccione una criptomoneda")),
+               sliderInput(inputId = "predict_days",
+                           label = "Number of days to predict:",
+                           min = 1,
+                           max = 50,
+                           value = 30),
                actionButton("go", "Actualizar", icon("refresh")))
     )
   })
   
   observe({  z<-read.csv("Base.csv")
   updateSelectInput(session,inputId = "criptomoneda",label = "Seleccione una criptomoneda:",
-                    choices = c("Seleccione una criptomoneda:",unique(as.character(z$CRIPTO))))
-
+                    choices = c(unique(as.character(z$CRIPTO))))
+  
   })
   
   base<-eventReactive(input$go,{
@@ -74,14 +79,14 @@ server = function(input, output, session) {
                             #filter(Fecha>="2015-02-20")%>%
                             group_by(CRIPTO,Fecha) %>%
                             summarise(Cierre=sum(Cierre,na.rm = TRUE)))
-     return(ventas)
+    return(ventas)
   })
   
   output$promediomes = renderPlot({
     datos = base()
     datosts <- ts(data = datos$Cierre)
     arima<-auto.arima(datosts)
-    graph = forecast(arima,h=12)
+    graph = forecast(arima,h=input$predict_days)
     plot(graph)
   })
   
@@ -89,7 +94,7 @@ server = function(input, output, session) {
     datos = base()
     datosts <- ts(datos$Cierre)
     arima<-auto.arima(datosts)
-    tab = forecast(arima, h=12)
+    tab = forecast(arima, h=input$predict_days)
     return(tab)
   })
   
