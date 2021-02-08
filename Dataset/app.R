@@ -62,9 +62,9 @@ server = function(input, output, session) {
                            max = 50,
                            value = 30),
                sliderInput(inputId = "plot_points",
-                           label = "Cuántos puntos quieres graficar:",
+                           label = "Cuántos puntos de la grafica deseas saltar:",
                            min = 365,
-                           max = 700,
+                           max = 1100,
                            value = 450),
                actionButton("go", "Actualizar", icon("refresh")))
     )
