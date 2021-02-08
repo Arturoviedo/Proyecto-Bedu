@@ -10,6 +10,7 @@ library("dplyr")
 library("lubridate")
 library('tseries')
 library('lmtest')
+library('plotly')
 
 
 #setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
@@ -25,7 +26,7 @@ ui = dashboardPage(skin = "black",
                        tabItem(tabName = "dashboard1",
                                fluidRow(
                                  column(8, box(
-                                   plotOutput(outputId = "promediomes"), solidHeader = FALSE, height = "auto", width = "100%")
+                                   plotlyOutput(outputId = "promediomes"), solidHeader = FALSE, height = "auto", width = "100%")
                                  ),
                                  
                                  column(4, box(
@@ -56,10 +57,15 @@ server = function(input, output, session) {
                            label = HTML("Seleccione una criptomoneda:"),
                            choices = c("Seleccione una criptomoneda")),
                sliderInput(inputId = "predict_days",
-                           label = "Number of days to predict:",
+                           label = "Numero de días a predecir:",
                            min = 1,
                            max = 50,
                            value = 30),
+               sliderInput(inputId = "plot_points",
+                           label = "Cuántos puntos quieres graficar:",
+                           min = 365,
+                           max = 700,
+                           value = 450),
                actionButton("go", "Actualizar", icon("refresh")))
     )
   })
@@ -82,12 +88,21 @@ server = function(input, output, session) {
     return(ventas)
   })
   
-  output$promediomes = renderPlot({
+  output$promediomes = renderPlotly({
     datos = base()
     datosts <- ts(data = datos$Cierre)
     arima<-auto.arima(datosts)
-    graph = forecast(arima,h=input$predict_days)
-    plot(graph)
+    fore = forecast(arima,h=input$predict_days)
+    plot <-plot_ly() %>%
+      add_lines(x = time(datosts), y = datosts, hoverinfo = "text",
+                color = I("black"), name = "datos conocidos")%>%
+      add_ribbons(x = time(fore$mean), ymin = fore$lower[, 2], ymax = fore$upper[, 2],
+                  color = I("gray95"), name = "95% confidence") %>%
+      add_ribbons(x = time(fore$mean), ymin = fore$lower[, 1], ymax = fore$upper[, 1],
+                  color = I("gray80"), name = "80% confidence") %>%
+      add_lines(x = time(fore$mean), y = fore$mean, color = I("blue"), name = "prediction")%>%
+      layout(xaxis = list(range=c(input$plot_points,length(datosts)+input$predict_days)))
+      
   })
   
   output$pronostico = renderTable({
