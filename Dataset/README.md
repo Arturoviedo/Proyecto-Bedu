@@ -4,19 +4,19 @@ Analizamos un Dataset de que contiene información de criptomonedas del periodo 
 
 Las criptomonedas que contiene son:
 
-*Bitcoin
-*Dash
-*Lite
-*Etherum
-*Monero
-*Nem
-*Neo
-*Numeraire
-*Omisego
-*Qtum
-*Ripple
-*Statis
-*Waves
+* Bitcoin
+* Dash
+* Lite
+* Etherum
+* Monero
+* Nem
+* Neo
+* Numeraire
+* Omisego
+* Qtum
+* Ripple
+* Statis
+* Waves
 
 ## Dataset
 
