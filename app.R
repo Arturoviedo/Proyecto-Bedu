@@ -13,7 +13,6 @@ library('lmtest')
 library('plotly')
 
 
-#setwd("C:/Users/Dell/Desktop/BEDUfinal/PFinal")
 
 ui = dashboardPage(skin = "black",
                    dashboardHeader(title = "Tablero"),
@@ -63,8 +62,8 @@ server = function(input, output, session) {
                            value = 30),
                sliderInput(inputId = "plot_points",
                            label = "Cuántos puntos de la grafica deseas saltar:",
-                           min = 365,
-                           max = 1100,
+                           min = 0,
+                           max = 1500,
                            value = 450),
                actionButton("go", "Actualizar", icon("refresh")))
     )
