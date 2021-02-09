@@ -93,7 +93,7 @@ server = function(input, output, session) {
     arima<-auto.arima(datosts)
     fore = forecast(arima,h=input$predict_days)
     plot <-plot_ly() %>%
-      add_lines(x = time(datosts), y = datosts, hoverinfo = "text",
+      add_lines(x = time(datosts), y = datosts,
                 color = I("black"), name = "datos conocidos")%>%
       add_ribbons(x = time(fore$mean), ymin = fore$lower[, 2], ymax = fore$upper[, 2],
                   color = I("gray95"), name = "95% confidence") %>%
